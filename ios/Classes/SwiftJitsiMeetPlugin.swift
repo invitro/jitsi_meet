@@ -9,6 +9,8 @@ public class SwiftJitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler
     
     var eventSink : FlutterEventSink?
     
+    var jitsiViewController : JitsiViewController?
+    
     init(uiViewController: UIViewController) {
         self.uiVC = uiViewController
     }
@@ -32,8 +34,8 @@ public class SwiftJitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if (call.method == "joinMeeting") {
-            
-            let jitsiViewController: JitsiViewController? = JitsiViewController.init()
+
+            let jitsiViewController = JitsiViewController.init()
             jitsiViewController?.eventSink = eventSink;
             // text = call.argument("text");
             
@@ -101,6 +103,8 @@ public class SwiftJitsiMeetPlugin: NSObject, FlutterPlugin, FlutterStreamHandler
             //self.uiVC.modalPresentationStyle = .fullScreen
             //self.uiVC.present(jitsiViewController!, animated: true, completion: nil)
             //print("OPEN JITSI MEET CALLED")
+        } else if (call.method == "closeMeeting") {
+            jitsiViewController.closeJitsiMeet()
         }
         
     }
